@@ -1,4 +1,4 @@
-th Rotation
+kth Rotation
 Difficulty: EasyAccuracy: 23.16%Submissions: 300K+Points: 2Average Time: 20m
 
 Given an increasing sorted rotated array arr[] of distinct integers. The array is right-rotated k times. Find the value of k.
