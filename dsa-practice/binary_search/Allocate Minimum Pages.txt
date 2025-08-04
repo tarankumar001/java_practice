@@ -1,0 +1,73 @@
+Given an array arr[] of integers, where each element arr[i] represents the number of pages in the i-th book. You also have an integer k representing the number of students. The task is to allocate books to each student such that:
+
+    Each student receives atleast one book.
+    Each student is assigned a contiguous sequence of books.
+    No book is assigned to more than one student.
+
+The objective is to minimize the maximum number of pages assigned to any student. In other words, out of all possible allocations, find the arrangement where the student who receives the most pages still has the smallest possible maximum.
+
+Note: If it is not possible to allocate books to all students, return -1.
+
+Examples:
+
+Input: arr[] = [12, 34, 67, 90], k = 2
+Output: 113
+Explanation: Allocation can be done in following ways:
+=> [12] and [34, 67, 90] Maximum Pages = 191
+=> [12, 34] and [67, 90] Maximum Pages = 157
+=> [12, 34, 67] and [90] Maximum Pages = 113.
+The third combination has the minimum pages assigned to a student which is 113.
+
+Input: arr[] = [15, 17, 20], k = 5
+Output: -1
+Explanation: Since there are more students than total books, it's impossible to allocate a book to each student.
+
+class Solution {
+    public int findPages(int[] arr, int k) {
+        int n = arr.length;
+
+        // If students are more than books, we can't allocate at least one book to each
+        if (k > n) return -1;
+
+        // Minimum possible pages = max(arr[i]), max possible = sum of all pages
+        int low = Integer.MIN_VALUE;
+        int high = 0;
+
+        for (int i = 0; i < n; i++) {
+            high += arr[i];                 // Sum of all pages
+            low = Math.max(low, arr[i]);    // At least one student has to take the biggest book
+        }
+
+        int result = -1;
+
+        while (low <= high) {
+            int mid = low + (high - low) / 2;  // Mid is current guess for max pages per student
+            int students = 1;                  // Start with one student
+            int pageSum = 0;                   // Page sum for current student
+            boolean possible = true;           // To track if mid is valid
+
+            for (int i = 0; i < n; i++) {
+                if (arr[i] > mid) {
+                    possible = false;  // One book is too big, can't assign
+                    break;
+                }
+
+                if (pageSum + arr[i] > mid) {
+                    students++;             // Give book to next student
+                    pageSum = arr[i];       // Start counting pages for new student
+                } else {
+                    pageSum += arr[i];      // Add book to current student
+                }
+            }
+
+            if (possible && students <= k) {
+                result = mid;          // Valid allocation, try smaller max
+                high = mid - 1;
+            } else {
+                low = mid + 1;         // Too tight, try bigger max
+            }
+        }
+
+        return result;
+    }
+}
