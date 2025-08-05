@@ -1,0 +1,48 @@
+class Solution {
+    public int splitArray(int[] arr, int k) {
+        int n = arr.length;
+
+        if (k > n) return -1;
+
+        int low = arr[0];
+        int high = 0;
+
+        for (int i = 0; i < n; i++) {
+            high += arr[i];                // total sum of array
+            low = Math.max(low, arr[i]);   // max value in array
+        }
+
+        int result = -1;
+
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+
+            int split = 1;           // we always need at least 1 subarray
+            int currentSum = 0;
+            boolean possible = true;
+
+            for (int i = 0; i < n; i++) {
+                if (arr[i] > mid) {
+                    possible = false;
+                    break;
+                }
+
+                if (currentSum + arr[i] > mid) {
+                    split++;                    // start new split (new painter)
+                    currentSum = arr[i];        // give current board to new painter
+                } else {
+                    currentSum += arr[i];       // add board to current painter
+                }
+            }
+
+            if (possible && split <= k) {
+                result = mid;       // store this as a possible answer
+                high = mid - 1;     // try for a smaller max sum
+            } else {
+                low = mid + 1;      // too many splits needed, increase limit
+            }
+        }
+
+        return result;
+    }
+}
