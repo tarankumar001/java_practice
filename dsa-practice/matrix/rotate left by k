@@ -1,0 +1,28 @@
+class Solution {
+    public int[][] rotateMatrix(int[][] mat, int k) {
+        // Step 1: Find dimensions of the matrix
+        int n = mat.length;      // number of rows
+        int m = mat[0].length;   // number of columns
+
+        // Step 2: Handle unnecessary large k
+        // rotating m times brings the row back to original
+        k = k % m;
+
+        // Step 3: Create new matrix to store rotated version
+        int[][] ans = new int[n][m];
+
+        // Step 4: Loop through each element of mat
+        for (int i = 0; i < n; i++) {         // loop over each row
+            for (int j = 0; j < m; j++) {     // loop over each column
+                // Formula to find new position after rotating left
+                int newPos = (j - k + m) % m;
+
+                // Place element from old matrix into new rotated matrix
+                ans[i][newPos] = mat[i][j];
+            }
+        }
+
+        // Step 5: Return rotated matrix
+        return ans;
+    }
+}

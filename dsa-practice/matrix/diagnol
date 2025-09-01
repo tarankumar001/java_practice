@@ -1,0 +1,22 @@
+class Solution {
+    public int[] matrixDiagonally(int[][] mat) {
+        int n = mat.length, m = mat[0].length;
+        int row = 0, col = 0;
+        int[] result = new int[n * m];
+
+        for (int i = 0; i < result.length; i++) {
+            result[i] = mat[row][col];
+
+            if ((row + col) % 2 == 0) {  // moving up-right
+                if (col == m - 1) row++;     // last column
+                else if (row == 0) col++;    // first row
+                else { row--; col++; }       // move up-right
+            } else {  // moving down-left
+                if (row == n - 1) col++;     // last row
+                else if (col == 0) row++;    // first column
+                else { row++; col--; }       // move down-left
+            }
+        }
+        return result;
+    }
+}
