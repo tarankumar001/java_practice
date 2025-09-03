@@ -1,0 +1,50 @@
+class Solution {
+    public int myAtoi(String s) {
+        // Step 1: Handle empty/null string
+        // 👉 If the input is null or just empty, there’s no number to convert.
+        // So we directly return 0.
+        if (s == null || s.length() == 0) return 0;
+
+        int i = 0, n = s.length();
+        long result = 0; // 👉 Store the number we build. Using long so we can detect overflow.
+        int sign = 1;    // 👉 Assume the number is positive unless we see a '-'.
+
+        // Step 2: Skip leading spaces
+        // 👉 Move the pointer forward until we reach the first non-space character.
+        while (i < n && s.charAt(i) == ' ') {
+            i++;
+        }
+
+        // Step 3: Check for sign
+        // 👉 If the first non-space character is '+' or '-', set the sign.
+        // If '-', mark number as negative. Then move to next character.
+        if (i < n && (s.charAt(i) == '+' || s.charAt(i) == '-')) {
+            if (s.charAt(i) == '-') sign = -1;
+            i++;
+        }
+
+        // Step 4: Read digits
+        // 👉 Keep reading digits one by one until we hit a non-digit or end of string.
+        // Each digit is added to result like: result = result*10 + digit.
+        while (i < n && Character.isDigit(s.charAt(i))) {
+            int digit = s.charAt(i) - '0';
+            result = result * 10 + digit;
+
+            // Step 5: Check overflow
+            // 👉 If result goes beyond max integer (2147483647) or min integer (-2147483648),
+            // return those limits immediately.
+            if (sign == 1 && result > Integer.MAX_VALUE) {
+                return Integer.MAX_VALUE;
+            }
+            if (sign == -1 && -result < Integer.MIN_VALUE) {
+                return Integer.MIN_VALUE;
+            }
+
+            i++;
+        }
+
+        // Step 6: Return result with sign
+        // 👉 Multiply the final number with its sign (+ or -), then return it.
+        return (int)(result * sign);
+    }
+}
