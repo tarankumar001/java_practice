@@ -1,0 +1,43 @@
+import java.util.ArrayList;
+
+class Solution {
+    public ArrayList<Integer> pattern(int n) {
+        ArrayList<Integer> result = new ArrayList<>();
+        generatePattern(n, result);
+        return result;
+    }
+
+    private void generatePattern(int current, ArrayList<Integer> result) {
+        result.add(current);
+
+        // Base condition
+        if (current <= 0) {
+            return;
+        }
+
+        // Recursive call
+        generatePattern(current - 5, result);
+
+        // Add while returning (reverse part)
+        result.add(current);
+    }
+}
+
+
+
+generatePattern(10)
+│
+├── add 10 → [10]
+│
+├── generatePattern(5)
+│   │
+│   ├── add 5 → [10, 5]
+│   │
+│   ├── generatePattern(0)
+│   │   │
+│   │   ├── add 0 → [10, 5, 0]
+│   │   └── return (stop here)
+│   │
+│   └── add 5 again → [10, 5, 0, 5]
+│
+└── add 10 again → [10, 5, 0, 5, 10]
