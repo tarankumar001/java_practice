@@ -1,0 +1,40 @@
+import java.util.*;
+
+class Solution {
+    static List<Integer> firstNegInt(int arr[], int k) {
+        ArrayList<Integer> result = new ArrayList<>();
+        ArrayList<Integer> negatives = new ArrayList<>(); // store indexes of negative numbers
+        int n = arr.length;
+
+        // Process first window
+        for (int i = 0; i < k; i++) {
+            if (arr[i] < 0) negatives.add(i);
+        }
+        result.add(negatives.isEmpty() ? 0 : arr[negatives.get(0)]);
+
+        // Slide the window
+        for (int i = k; i < n; i++) {
+            // Remove negatives which are out of the current window
+            if (!negatives.isEmpty() && negatives.get(0) <= i - k) {
+                negatives.remove(0);
+            }
+
+            // Add current element if negative
+            if (arr[i] < 0) negatives.add(i);
+
+            // Add first negative of current window
+            result.add(negatives.isEmpty() ? 0 : arr[negatives.get(0)]);
+        }
+
+        return result;
+    }
+
+    // Test the optimized code
+    public static void main(String[] args) {
+        int arr[] = {12, -1, -7, 8, -15, 30, 16, 28};
+        int k = 3;
+
+        List<Integer> ans = firstNegInt(arr, k);
+        System.out.println(ans); // Output: [-1, -1, -7, -15, -15, 0]
+    }
+}
