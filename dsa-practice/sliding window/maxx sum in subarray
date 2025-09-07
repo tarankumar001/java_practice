@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int maxSubarraySum(vector<int>& arr, int k) {
+        int ans = 0;   // To store the maximum sum
+        int sum = 0;   // To store sum of current subarray
+
+        // Step 1: Sum of first 'k' elements
+        for (int i = 0; i < k; i++) {
+            sum += arr[i];
+        }
+        ans = sum;  // First window sum is initial max
+
+        // Step 2: Slide the window through the array
+        for (int i = k; i < arr.size(); i++) {
+            sum += arr[i] - arr[i - k]; // Add new element, remove oldest element
+            ans = max(sum, ans);        // Update max if current sum is bigger
+        }
+
+        return ans;  // Return the maximum sum found
+    }
+};
