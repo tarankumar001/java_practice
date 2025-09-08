@@ -1,0 +1,41 @@
+import java.util.Arrays;
+
+class Solution {
+    int search(String pat, String txt) {
+        int patLen = pat.length();
+        int txtLen = txt.length();
+        if (patLen > txtLen) return 0;   // pattern longer than text → impossible
+
+        // Think of these as 256 "buckets" (one per ASCII char).
+        // patternCount[c] = how many times char c appears in pat
+        // windowCount[c]  = how many times char c appears in current window in txt
+        int[] patternCount = new int[256];
+        int[] windowCount  = new int[256];
+
+        // fill counts for pattern
+        for (int x = 0; x < patLen; x++) {
+            patternCount[pat.charAt(x)]++;
+        }
+
+        int i = 0, j = 0, matches = 0;  // i = left of window, j = right of window
+
+        // slide the window over txt
+        while (j < txtLen) {
+            // include txt[j] into the window
+            windowCount[txt.charAt(j)]++;
+
+            // when window size reaches patLen, check & slide
+            if (j >= patLen - 1) {
+                // compare buckets: if equal → an anagram found
+                if (Arrays.equals(patternCount, windowCount)) {
+                    matches++;
+                }
+                // remove txt[i] as we slide the window forward
+                windowCount[txt.charAt(i)]--;
+                i++;  // move left edge
+            }
+            j++;      // always move right edge
+        }
+        return matches;
+    }
+}
