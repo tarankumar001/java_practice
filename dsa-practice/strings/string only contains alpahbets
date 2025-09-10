@@ -1,0 +1,21 @@
+// User function Template for Java
+class Solution {
+    String removeSpecialCharacter(String s) {
+        StringBuilder result = new StringBuilder();
+
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+
+            // convert to lowercase for uniform check
+            ch = Character.toLowerCase(ch);
+
+            // keep only alphabets
+            if (ch >= 'a' && ch <= 'z') {
+                result.append(s.charAt(i)); // keep original case if needed
+            }
+        }
+
+        if (result.length() == 0) return "-1";  // must return String
+        return result.toString();
+    }
+}
