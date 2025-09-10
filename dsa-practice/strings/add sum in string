@@ -1,0 +1,15 @@
+class Solution {
+    public int findSum(String s) {
+        int sum = 0;
+
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);  // take character
+
+            if (Character.isDigit(ch)) {  // check if it's a digit
+                sum += ch - '0';   // add digit value (not ASCII)
+            }
+        }
+
+        return sum;
+    }
+}
