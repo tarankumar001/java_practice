@@ -1,14 +1,23 @@
 class Solution {
     public int findSum(String s) {
-        int sum = 0;
+        int sum = 0;       // final sum
+        int current = 0;   // number being built from digits
 
         for (int i = 0; i < s.length(); i++) {
-            char ch = s.charAt(i);  // take character
+            char ch = s.charAt(i);
 
-            if (Character.isDigit(ch)) {  // check if it's a digit
-                sum += ch - '0';   // add digit value (not ASCII)
+            if (Character.isDigit(ch)) {
+                // build multi-digit number
+                current = current * 10 + (ch - '0');
+            } else {
+                // when non-digit appears, add built number to sum
+                sum += current;
+                current = 0;
             }
         }
+
+        // add last number (if string ends with a digit)
+        sum += current;
 
         return sum;
     }
