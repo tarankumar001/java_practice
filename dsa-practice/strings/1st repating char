@@ -1,0 +1,19 @@
+class Solution {
+    char firstRep(String S) {
+        int[] count = new int[256];  // array to store frequency of each char
+
+        // Count occurrences
+        for (int i = 0; i < S.length(); i++) {
+            count[S.charAt(i)]++;
+        }
+
+        // Find first character with count > 1
+        for (int i = 0; i < S.length(); i++) {
+            if (count[S.charAt(i)] > 1) {
+                return S.charAt(i);  // first repeating character
+            }
+        }
+
+        return '#';  // no repeating character
+    }
+}
