@@ -1,0 +1,23 @@
+class Solution {
+    String removeDuplicates(String s) {
+        // To track already seen characters
+        HashSet<Character> seen = new HashSet<>();
+        
+        // StringBuilder for efficient string building
+        StringBuilder result = new StringBuilder();
+        
+        // Loop through each character in string
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            
+            // If not seen before, add to result and mark as seen
+            if (!seen.contains(ch)) {
+                result.append(ch);
+                seen.add(ch);
+            }
+        }
+        
+        // Return final result
+        return result.toString();
+    }
+}

@@ -1,0 +1,23 @@
+class Solution {
+    public char getMaxOccuringChar(String s) {
+        // frequency array for all ASCII characters
+        int[] freq = new int[256];
+        
+        // Count frequency of each char
+        for (int i = 0; i < s.length(); i++) {
+            freq[s.charAt(i)]++;
+        }
+
+        // Find character with maximum frequency
+        int max = -1;
+        char result = ' ';
+        for (int i = 0; i < s.length(); i++) {
+            if (freq[s.charAt(i)] > max) {
+                max = freq[s.charAt(i)];
+                result = s.charAt(i);
+            }
+        }
+
+        return result;
+    }
+}
