@@ -1,0 +1,26 @@
+class Solution {
+    static String removeChars(String str1, String str2) {
+        int n1 = str1.length();
+        int n2 = str2.length();
+        
+        StringBuilder result = new StringBuilder(); // store final answer
+        
+        for (int i = 0; i < n1; i++) {
+            char c = str1.charAt(i);
+            boolean found = false; // assume c is not in str2
+            
+            for (int j = 0; j < n2; j++) {
+                if (c == str2.charAt(j)) {
+                    found = true; // character should be removed
+                    break;
+                }
+            }
+            
+            if (!found) {  // only keep characters not in str2
+                result.append(c);
+            }
+        }
+        
+        return result.toString();
+    }
+}
