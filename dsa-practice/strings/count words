@@ -1,0 +1,21 @@
+class Solution {
+    int countWords(String S) {
+        if (S == null || S.isEmpty()) {
+            return 0; // empty string has 0 words
+        }
+        
+        // Split using space, tab or newline as separators
+        String[] words = S.split("[\\s]+"); 
+        // [\\s]+ matches one or more whitespace characters (space, \t, \n)
+s = s.replace("\\n", " ").replace("\\t", " ");
+        
+        int count = 0;
+        for (String word : words) {
+            if (!word.isEmpty()) {
+                count++; // count only non-empty strings
+            }
+        }
+        
+        return count;
+    }
+}
