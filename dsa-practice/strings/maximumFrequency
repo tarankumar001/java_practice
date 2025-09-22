@@ -1,0 +1,19 @@
+public String maximumFrequency(String str) {
+        String[]s = str.split(" ");
+        HashMap<String, Integer>map = new HashMap<>();
+        int max = 0;
+        String res = "";
+        for(String t: s){
+            map.put(t, map.getOrDefault(t, 0)+1);
+           
+        }
+        for(String t: s){
+           
+            if(map.get(t)>max){
+                
+                max = map.get(t);
+                res = t +" "+ max;
+            }
+        }
+        return res;
+    }
