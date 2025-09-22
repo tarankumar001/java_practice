@@ -1,0 +1,26 @@
+class Solution {
+    int firstOccurence(String txt, String pat) {
+        int n = txt.length();   // length of main string
+        int m = pat.length();   // length of pattern
+
+        // try every starting index in txt
+        for (int i = 0; i <= n - m; i++) {
+            int j;
+
+            // check if pat matches starting at i
+            for (j = 0; j < m; j++) {
+                if (txt.charAt(i + j) != pat.charAt(j)) {
+                    break; // mismatch
+                }
+            }
+
+            // if we matched all chars of pat
+            if (j == m) {
+                return i;  // return starting index
+            }
+        }
+
+        // pattern not found
+        return -1;
+    }
+}
