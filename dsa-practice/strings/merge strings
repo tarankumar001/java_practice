@@ -1,0 +1,15 @@
+class Solution {
+    String merge(String S1, String S2) {
+        StringBuilder result = new StringBuilder();
+        int n1 = S1.length(), n2 = S2.length();
+        int i = 0;
+
+        // merge characters one by one
+        while (i < n1 || i < n2) {
+            if (i < n1) result.append(S1.charAt(i));
+            if (i < n2) result.append(S2.charAt(i));
+            i++;
+        }
+        return result.toString();
+    }
+}
